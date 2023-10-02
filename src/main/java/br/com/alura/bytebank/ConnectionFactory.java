@@ -8,9 +8,14 @@ public class ConnectionFactory {
     public Connection recuperarConexao() {
         try {
             return DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/byte_bank", "postgres", "");
+                    .getConnection("jdbc:mysql://localhost:3306/byte_bank?user=root&password=admin");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            try {
+                return DriverManager
+                        .getConnection("jdbc:postgresql://localhost:5432/byte_bank", "postgres", "");
+            } catch (SQLException f) {
+                throw new RuntimeException(f);
+            }
         }
     }
 }
